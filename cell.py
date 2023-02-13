@@ -5,7 +5,6 @@ import sys
 
 
 class Cell:
-  
     list_of_cells = []
     cell_counter = settings.cell_count
     cell_count_label = None
@@ -45,7 +44,7 @@ class Cell:
                 for cells in self.get_surrounding_cells:
                     cells.show_cell()
             self.show_cell()
-            # If number of cells left equals number of mines the player wins
+            # If number of cells left equals 0 the player wins
             if Cell.cell_counter == 0:
                 messagebox.showinfo('Congratulations', 'You Won the Game')
                 sys.exit()
@@ -55,7 +54,6 @@ class Cell:
         
         
     def Right_click_event(self, event):
-        
         if not self.is_possible_mine and not self.is_open:
             self.cell_button_object.configure(bg='orange')
             self.is_possible_mine = True
@@ -73,20 +71,15 @@ class Cell:
     @property
     def get_surrounding_cells(self):
         surrounding_cells = [
-            
             self.get_cell_by_axis(self.x-1, self.y),
-            self.get_cell_by_axis(self.x+1, self.y),
-            
+            self.get_cell_by_axis(self.x+1, self.y),  
             self.get_cell_by_axis(self.x, self.y-1),
             self.get_cell_by_axis(self.x+1, self.y-1),
             self.get_cell_by_axis(self.x-1, self.y-1),
-            
-            
             self.get_cell_by_axis(self.x-1, self.y+1),
             self.get_cell_by_axis(self.x+1, self.y+1),
             self.get_cell_by_axis(self.x, self.y+1),
         ]
-        # Remove any None value
         surrounding_cells = [cell for cell in surrounding_cells if cell is not None]
         return surrounding_cells
         
